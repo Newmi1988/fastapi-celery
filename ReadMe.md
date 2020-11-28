@@ -24,7 +24,8 @@ docker-compose up
 Use the FastAPI Docs page to run the example on the workers
 
 ## TODO
-Add pydantic models for savety.
+- Add pydantic models for savety.
+- Add helm charts and automate build for testing in k8s
 
 ## NOTE
 The underlying modules using poetry to keep track of all the dependencies.
