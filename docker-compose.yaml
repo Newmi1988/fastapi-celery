@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    hostname: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+
+  redis: 
+    image: "redis"
+
+  celeryworker:
+    depends_on:
+      - redis
+      - rabbitmq
+    build:
+      context: ./src/celeryworker
+      dockerfile: Dockerfile
+    deploy:
+      replicas: 3
+
+  fastapi:
+    depends_on:
+      - "celeryworker"
+    build:
+      context: ./src/
+      dockerfile: ./api/Dockerfile
+    ports:
+      - "8080:8080"
