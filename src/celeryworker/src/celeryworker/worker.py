@@ -10,7 +10,7 @@ if "ISPRODUCTION" not in list(os.environ.keys()):
 else:
     app = Celery('tasks', backend = 'redis://redis', broker='amqp://rabbitmq')
 
-@app.task
+@app.task(name="add.two")
 def add_two_numbers(x : int,y : int) -> int:
     """Add to numbers with random delay.
 

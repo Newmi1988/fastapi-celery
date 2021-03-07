@@ -42,9 +42,10 @@ RUN curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poet
 
 # copy project requirement files here to ensure they will be cached.
 WORKDIR $PYSETUP_PATH
-COPY ./api/src ./src
 COPY ./api/poetry.lock ./api/pyproject.toml ./
-COPY ./celeryworker  /opt/celeryworker
+RUN poetry install --no-root
+
+COPY ./api/src ./src
 RUN poetry install --no-dev
 
 # `production` image used for runtime

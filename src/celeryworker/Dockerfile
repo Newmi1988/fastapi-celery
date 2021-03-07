@@ -45,29 +45,11 @@ WORKDIR $PYSETUP_PATH
 COPY poetry.lock pyproject.toml ./
 
 # install runtime deps - uses $POETRY_VIRTUALENVS_IN_PROJECT internally
-RUN poetry export --without-hashes > requirements.txt \
-    && poetry run pip install -r requirements.txt \
-    && rm requirements.txt
+RUN poetry install --no-root
 
 COPY ./src ./src
 RUN poetry install --no-dev
 
-# `development` image is used during development / testing
-# FROM python-base as development
-# ENV FASTAPI_ENV=development
-# WORKDIR $PYSETUP_PATH
-
-# # copy in our built poetry + venv
-# COPY --from=builder-base $POETRY_HOME $POETRY_HOME
-# COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
-
-# # quicker install as runtime deps are already installed
-# RUN poetry install
-
-# WORKDIR /app
-
-# EXPOSE 8000
-# CMD ["celery", "--app" "api.celery.worker:app" "worker" "--loglevel=INFO"]
 
 # `production` image used for runtime
 FROM python-base as production
