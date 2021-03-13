@@ -11,6 +11,7 @@ redis = "^3.5.3"
 celery = "^5.0.2"
 
 [tool.poetry.dev-dependencies]
+newmi1988_dev_deps = {git = "https://github.com/Newmi1988/poetry-dev-packges.git", branch="main"}
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
