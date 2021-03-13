@@ -34,14 +34,9 @@ async def do_task() -> Response:
 
     s = time()
     job = group(tasks.send_task('add.two',args=[i,i]) for i in range(100))
-    result = job.apply_async(retry_policy={
-        'max_retries': 3,
-        'interval_start': 0,
-        'interval_step': 0.2,
-        'interval_max': 0.2,
-    })
+    result = job.apply_async()
     
-    result.ready()
+    # result.ready()
     res = result.get()
     print(f'Took {time()-s} seconds.')
 

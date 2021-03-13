@@ -21,7 +21,7 @@ def add_two_numbers(x : int,y : int) -> int:
     Returns:
         Sum of the numbers
     """
-    sleep(randrange(3))
+    # sleep(randrange(3))
     print(f" Result is {x+y}")
     return x+y
 
